@@ -10,12 +10,13 @@ const transport = nodemailer.createTransport({
 });
 
 const sendVerificationEmail = (email, token) => {
-  const url = `http://localhost:5000/api/auth/verify-email?token=${token}`;
+  const url = `${process.env.BASE_URL}/api/auth/verify-email?token=${token}`;
 
   return transport.sendMail({
     from: '"E-Shop" <no-reply@eshop.com>',
     to: email,
     subject: "Verify Your Email",
+    text: `Click the following link to verify your email: ${url}`,
     html: `<p>Click <a href="${url}">here</a> to verify your email.</p>`
   });
 };
